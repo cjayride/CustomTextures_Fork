@@ -1,0 +1,147 @@
+﻿using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
+
+namespace CustomTextures
+{
+    public partial class BepInExPlugin
+    {
+
+        [HarmonyPatch(typeof(FejdStartup), "SetupObjectDB")]
+        static class FejdStartup_SetupObjectDB_Patch
+        {
+            static void Postfix()
+            {
+                if (!modEnabled.Value)
+                    return;
+                stopwatch.Restart();
+                outputDump.Clear();
+
+                ReplaceObjectDBTextures();
+                LogStopwatch("SetupObjectDB");
+            }
+
+        }
+
+        [HarmonyPatch(typeof(ZoneSystem), "Awake")]
+        static class ZoneSystem_Awake_Patch
+        {
+            static void Prefix(ZoneSystem __instance)
+            {
+                outputDump.Clear();
+                ReplaceZoneSystemTextures(__instance);
+
+            }
+        }
+
+        [HarmonyPatch(typeof(ZNetScene), "Awake")]
+        static class ZNetScene_Awake_Patch
+        {
+            static void Postfix(ZNetScene __instance, Dictionary<int, GameObject> ___m_namedPrefabs)
+            {
+
+                stopwatch.Restart();
+
+                ReplaceZNetSceneTextures();
+
+                LogStopwatch("ZNetScene");
+                //stopwatch.Restart();
+
+                ReplaceEnvironmentTextures();
+
+                //LogStopwatch("ZNetScene 2");
+            }
+        }
+
+        
+        //[HarmonyPatch(typeof(Player), "Start")]
+        static class Player_Start_Patch
+        {
+            static void Prefix(Player __instance)
+            {
+                if (!modEnabled.Value || Player.m_localPlayer != __instance)
+                    return;
+                ReloadTextures(replaceLocationTextures.Value);
+            }
+        }
+
+
+        
+        
+        [HarmonyPatch(typeof(ClutterSystem), "Awake")]
+        static class ClutterSystem_Awake_Patch
+        {
+            static void Postfix(ClutterSystem __instance)
+            {
+
+                stopwatch.Restart();
+
+                foreach (ClutterSystem.Clutter clutter in __instance.m_clutter)
+                {
+                    ReplaceOneGameObjectTextures(clutter.m_prefab, clutter.m_prefab.name, "object");
+                }
+
+                LogStopwatch("Clutter System");
+
+            }
+        }
+
+        [HarmonyPatch(typeof(ZoneSystem), "Start")]
+        static class ZoneSystem_Start_Patch
+        {
+            static void Prefix()
+            {
+                if (replaceLocationTextures.Value)
+                {
+                    stopwatch.Restart();
+
+                    ReplaceLocationTextures();
+
+                    LogStopwatch("ZoneSystem Locations");
+                }
+
+            }
+        }
+        [HarmonyPatch(typeof(VisEquipment), "Awake")]
+        static class VisEquipment_Awake_Patch
+        {
+            static void Postfix(VisEquipment __instance)
+            {
+                for (int i = 0; i < __instance.m_models.Length; i++)
+                {
+                    foreach(string property in __instance.m_models[i].m_baseMaterial.GetTexturePropertyNames())
+                    {
+
+                        if (ShouldLoadCustomTexture($"player_model_{i}{property}"))
+                        {
+                            __instance.m_models[i].m_baseMaterial.SetTexture(property, LoadTexture($"player_model_{i}{property}", __instance.m_models[i].m_baseMaterial.GetTexture(property), false));
+                        }
+                        else if (property == "_MainTex" && ShouldLoadCustomTexture($"player_model_{i}_texture")) // legacy
+                        {
+                            __instance.m_models[i].m_baseMaterial.SetTexture(property, LoadTexture($"player_model_{i}_texture", __instance.m_models[i].m_baseMaterial.GetTexture(property), false));
+                        }
+                        else if (property == "_SkinBumpMap" && ShouldLoadCustomTexture($"player_model_{i}_bump")) // legacy
+                        {
+                            __instance.m_models[i].m_baseMaterial.SetTexture(property, LoadTexture($"player_model_{i}_bump", __instance.m_models[i].m_baseMaterial.GetTexture(property), true));
+                        }
+                    }
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(Humanoid), "SetupVisEquipment")]
+        static class Humanoid_SetupVisEquipment_Patch
+        {
+            static void Postfix(Humanoid __instance)
+            {
+                if (!modEnabled.Value)
+                    return;
+                SetupVisEquipment(__instance);
+            }
+        }
+    }
+}

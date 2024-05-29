@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>CustomTextures</AssemblyName>
+    <RootNamespace>CustomTextures</RootNamespace>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>3.4.0</AssemblyVersion>
+    <FileVersion>3.4.0</FileVersion>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\valheim.targets" />
+</Project>

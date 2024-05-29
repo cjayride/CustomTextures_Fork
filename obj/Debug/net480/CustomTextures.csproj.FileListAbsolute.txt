@@ -1,0 +1,9 @@
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.AssemblyInfo.cs
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\bin\Debug\net480\CustomTextures.dll
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\bin\Debug\net480\CustomTextures.pdb
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.dll
+C:\Users\Administrator\Documents\Valheim-Modding\CustomTextures_Fork-main\obj\Debug\net480\CustomTextures.pdb
