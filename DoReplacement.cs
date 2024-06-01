@@ -5,19 +5,15 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-namespace CustomTextures
-{
-    public partial class BepInExPlugin : BaseUnityPlugin
-    {
-        private static void ReplaceOneGameObjectTextures(GameObject gameObject, string thingName, string prefix)
-        {
+namespace CustomTextures {
+    public partial class BepInExPlugin : BaseUnityPlugin {
+        private static void ReplaceOneGameObjectTextures(GameObject gameObject, string thingName, string prefix) {
             if (reloadedObjects.Contains(gameObject.GetInstanceID()))
                 return;
 
             reloadedObjects.Add(gameObject.GetInstanceID());
-            if (thingName.Contains("_frac"))
-            {
-                if(dumpSceneTextures.Value)
+            if (thingName.Contains("_frac")) {
+                if (dumpSceneTextures.Value)
                     outputDump.Add($"skipping _frac {thingName}");
                 return;
             }
@@ -36,14 +32,11 @@ namespace CustomTextures
             LineRenderer[] lrs = gameObject.GetComponentsInChildren<LineRenderer>(true);
 
 
-            if (mrs.Length > 0)
-            {
-                if(dump)
+            if (mrs.Length > 0) {
+                if (dump)
                     outputDump.Add($"{prefix} {thingName} has {mrs.Length} MeshRenderers:");
-                foreach (MeshRenderer r in mrs)
-                {
-                    if (r == null)
-                    {
+                foreach (MeshRenderer r in mrs) {
+                    if (r == null) {
                         if (dump)
                             outputDump.Add($"\tnull");
                         continue;
@@ -51,8 +44,7 @@ namespace CustomTextures
 
                     if (dump)
                         outputDump.Add($"\tMeshRenderer name: {r.name}");
-                    if (r.materials == null || !r.materials.Any())
-                    {
+                    if (r.materials == null || !r.materials.Any()) {
                         if (dump)
                             outputDump.Add($"\t\trenderer {r.name} has no materials");
                         continue;
@@ -60,42 +52,34 @@ namespace CustomTextures
                     if (dump)
                         outputDump.Add($"\t\trenderer {r.name} has {r.materials.Length} materials");
 
-                    foreach (Material m in r.materials)
-                    {
+                    foreach (Material m in r.materials) {
                         if (m == null)
                             continue;
 
-                        try
-                        {
+                        try {
                             if (dump)
                                 outputDump.Add($"\t\t\t{m.name}:");
 
                             ReplaceMaterialTextures(gameObject.name, m, thingName, prefix, "MeshRenderer", r.name, dump);
-                        }
-                        catch (Exception ex)
-                        {
-                             //logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
+                        } catch (Exception ex) {
+                            logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
                         }
                     }
 
                 }
             }
-            if (smrs.Length > 0)
-            {
+            if (smrs.Length > 0) {
                 if (dump)
                     outputDump.Add($"{prefix} {thingName} has {smrs.Length} SkinnedMeshRenderers:");
-                foreach (SkinnedMeshRenderer r in smrs)
-                {
-                    if (r == null)
-                    {
+                foreach (SkinnedMeshRenderer r in smrs) {
+                    if (r == null) {
                         if (dump)
                             outputDump.Add($"\tnull");
                         continue;
                     }
                     if (dump)
                         outputDump.Add($"\tSkinnedMeshRenderer name: {r.name}");
-                    if (r.materials == null || !r.materials.Any())
-                    {
+                    if (r.materials == null || !r.materials.Any()) {
                         if (dump)
                             outputDump.Add($"\t\tsmr {r.name} has no materials");
                         continue;
@@ -104,34 +88,27 @@ namespace CustomTextures
                     if (dump)
                         outputDump.Add($"\t\tsmr {r.name} has {r.materials.Length} materials");
 
-                    foreach (Material m in r.materials)
-                    {
+                    foreach (Material m in r.materials) {
                         if (m == null)
                             continue;
 
-                        try
-                        {
+                        try {
                             if (dump)
                                 outputDump.Add($"\t\t\t{m.name}:");
 
                             ReplaceMaterialTextures(gameObject.name, m, thingName, prefix, "SkinnedMeshRenderer", r.name, dump);
-                        }
-                        catch (Exception ex)
-                        {
-                            //logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
+                        } catch (Exception ex) {
+                            logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
                         }
                     }
 
                 }
             }
-            if (irs.Length > 0)
-            {
+            if (irs.Length > 0) {
                 if (dump)
                     outputDump.Add($"{prefix} {thingName} has {irs.Length} InstanceRenderer:");
-                foreach (InstanceRenderer r in irs)
-                {
-                    if (r == null)
-                    {
+                foreach (InstanceRenderer r in irs) {
+                    if (r == null) {
                         if (dump)
                             outputDump.Add($"\tnull");
                         continue;
@@ -139,34 +116,27 @@ namespace CustomTextures
 
                     if (dump)
                         outputDump.Add($"\tInstanceRenderer name: {r.name}");
-                    if (r.m_material == null)
-                    {
+                    if (r.m_material == null) {
                         if (dump)
                             outputDump.Add($"\t\tir {r.name} has no material");
                         continue;
                     }
 
-                    try
-                    {
+                    try {
                         if (dump)
                             outputDump.Add($"\t\t\t{r.m_material.name}:");
 
                         ReplaceMaterialTextures(gameObject.name, r.m_material, thingName, prefix, "InstanceRenderer", r.name, dump);
-                    }
-                    catch (Exception ex)
-                    {
-                        //logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
+                    } catch (Exception ex) {
+                        logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
                     }
                 }
             }
-            if (prs.Length > 0)
-            {
+            if (prs.Length > 0) {
                 if (dump)
                     outputDump.Add($"{prefix} {thingName} has {prs.Length} ParticleSystemRenderers:");
-                foreach (ParticleSystemRenderer r in prs)
-                {
-                    if (r == null)
-                    {
+                foreach (ParticleSystemRenderer r in prs) {
+                    if (r == null) {
                         if (dump)
                             outputDump.Add($"\tnull");
                         continue;
@@ -174,33 +144,26 @@ namespace CustomTextures
 
                     if (dump)
                         outputDump.Add($"\tParticleSystemRenderer name: {r.name}");
-                    foreach (Material m in r.materials)
-                    {
+                    foreach (Material m in r.materials) {
                         if (m == null)
                             continue;
 
-                        try
-                        {
+                        try {
                             if (dump)
                                 outputDump.Add($"\t\t\t{m.name}:");
 
                             ReplaceMaterialTextures(gameObject.name, m, thingName, prefix, "ParticleSystemRenderer", r.name, dump);
-                        }
-                        catch (Exception ex)
-                        {
-                            //logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
+                        } catch (Exception ex) {
+                            logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
                         }
                     }
                 }
             }
-            if (lrs.Length > 0)
-            {
+            if (lrs.Length > 0) {
                 if (dump)
                     outputDump.Add($"{prefix} {thingName} has {lrs.Length} LineRenderers:");
-                foreach (LineRenderer r in lrs)
-                {
-                    if (r == null)
-                    {
+                foreach (LineRenderer r in lrs) {
+                    if (r == null) {
                         if (dump)
                             outputDump.Add($"\tnull");
                         continue;
@@ -208,30 +171,24 @@ namespace CustomTextures
 
                     if (dump)
                         outputDump.Add($"\tLineRenderers name: {r.name}");
-                    foreach (Material m in r.materials)
-                    {
+                    foreach (Material m in r.materials) {
                         if (m == null)
                             continue;
 
-                        try
-                        {
+                        try {
                             if (dump)
                                 outputDump.Add($"\t\t\t{m.name}:");
 
                             ReplaceMaterialTextures(gameObject.name, m, thingName, prefix, "LineRenderer", r.name, dump);
-                        }
-                        catch (Exception ex)
-                        {
-                             //logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
+                        } catch (Exception ex) {
+                            logDump.Add($"\t\t\tError loading {r.name}:\r\n\r\n\t\t\t{ex}");
                         }
                     }
                 }
             }
             ItemDrop[] items = gameObject.GetComponentsInChildren<ItemDrop>();
-            foreach(ItemDrop item in items)
-            {
-                if (item != null && item.m_itemData.m_shared.m_armorMaterial != null)
-                {
+            foreach (ItemDrop item in items) {
+                if (item != null && item.m_itemData.m_shared.m_armorMaterial != null) {
                     if (dump)
                         outputDump.Add($"armor {thingName} has Material:");
                     Material m = item.m_itemData.m_shared.m_armorMaterial;
@@ -245,8 +202,7 @@ namespace CustomTextures
             //LogStopwatch("OneObject");
         }
 
-        private static void ReplaceMaterialTextures(string goName, Material m, string thingName, string prefix, string rendererType, string rendererName, bool dump)
-        {
+        private static void ReplaceMaterialTextures(string goName, Material m, string thingName, string prefix, string rendererType, string rendererName, bool dump) {
             if (m == null)
                 return;
 
@@ -256,8 +212,7 @@ namespace CustomTextures
             if (prefix == "item")
                 prefix = "object";
 
-            foreach (string property in m.GetTexturePropertyNames())
-            {
+            foreach (string property in m.GetTexturePropertyNames()) {
                 if (dumpSceneTextures.Value)
                     outputDump.Add($"\t\t\t\t\t{property} {m.GetTexture(property)?.name}");
 
@@ -273,16 +228,14 @@ namespace CustomTextures
             }
         }
 
-        private static void CheckSetMatTextures(string goName, Material m, string prefix, string thingName, string rendererType, string rendererName, string name, string property)
-        {
-            foreach (string str in MakePrefixStrings(prefix, thingName, rendererName, m.name, name))
-            {
+        private static void CheckSetMatTextures(string goName, Material m, string prefix, string thingName, string rendererType, string rendererName, string name, string property) {
+            foreach (string str in MakePrefixStrings(prefix, thingName, rendererName, m.name, name)) {
                 if (!ShouldLoadCustomTexture(str + property))
                     continue;
 
                 int propHash = Shader.PropertyToID(property);
-                if (m.HasProperty(propHash))
-                {
+                if (m.HasProperty(propHash)) {
+                    Dbgl($"{prefix} {thingName}, {rendererType} {rendererName}, material {m.name}, texture {name}, using {str}{property} for {property}.");
 
                     Texture vanilla = m.GetTexture(propHash);
 
@@ -292,7 +245,7 @@ namespace CustomTextures
 
 
                     if (ShouldLoadCustomTexture(str + property))
-                        result = LoadTexture(str+property, vanilla, isBump);
+                        result = LoadTexture(str + property, vanilla, isBump);
                     else if (property == "_MainTex" && ShouldLoadCustomTexture(str + "_texture"))
                         result = LoadTexture(str + "_texture", vanilla, isBump);
                     else if (property == "_BumpMap" && ShouldLoadCustomTexture(str + "_bump"))
@@ -313,8 +266,7 @@ namespace CustomTextures
             }
         }
 
-        private static string[] MakePrefixStrings(string prefix, string thingName, string rendererName, string matName, string name)
-        {
+        private static string[] MakePrefixStrings(string prefix, string thingName, string rendererName, string matName, string name) {
             var outstrings = new string[]
             {
                 prefix+"_"+thingName,
@@ -330,7 +282,7 @@ namespace CustomTextures
             };
             if (!thingName.EndsWith("(Clone)"))
                 return outstrings;
-            
+
             List<string> strings = new List<string>(outstrings);
             thingName = thingName.Substring(0, thingName.Length - "(Clone)".Length);
             strings.AddRange(new string[]
@@ -350,80 +302,62 @@ namespace CustomTextures
         }
 
 
-        private static Texture2D LoadTexture(string id, Texture vanilla, bool isBump, bool point = true, bool needCustom = false, bool isSprite = false)
-        {
+        private static Texture2D LoadTexture(string id, Texture vanilla, bool isBump, bool point = true, bool needCustom = false, bool isSprite = false) {
             Texture2D texture;
-            if (cachedTextures.ContainsKey(id))
-            {
+            if (cachedTextures.ContainsKey(id)) {
+                logDump.Add($"loading cached texture for {id}");
                 texture = cachedTextures[id];
-                if (customTextures.ContainsKey(id))
-                {
-                    if (customTextures[id].Contains("bilinear"))
-                    {
+                if (customTextures.ContainsKey(id)) {
+                    if (customTextures[id].Contains("bilinear")) {
                         texture.filterMode = FilterMode.Bilinear;
-                    }
-                    else if (customTextures[id].Contains("trilinear"))
-                    {
+                    } else if (customTextures[id].Contains("trilinear")) {
                         texture.filterMode = FilterMode.Trilinear;
-                    }
-                    else if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}point{Path.DirectorySeparatorChar}"))
-                    {
+                    } else if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}point{Path.DirectorySeparatorChar}")) {
                         texture.filterMode = FilterMode.Trilinear;
-                    }
-                    else if (point)
+                    } else if (point)
                         texture.filterMode = FilterMode.Point;
                 }
                 return texture;
             }
 
-            var layers = customTextures.Where(p => p.Key.StartsWith(id+"_"));
+            var layers = customTextures.Where(p => p.Key.StartsWith(id + "_"));
 
-            if (!customTextures.ContainsKey(id) && layers.Count() == 0)
-            {
+            if (!customTextures.ContainsKey(id) && layers.Count() == 0) {
                 if (needCustom)
                     return null;
                 return (Texture2D)vanilla;
             }
 
-            if (vanilla == null)
-            {
+            logDump.Add($"loading custom texture for {id} {layers.Count()} layers");
+
+
+            if (vanilla == null) {
                 texture = new Texture2D(2, 2, TextureFormat.RGBA32, true, isBump);
-                if (!customTextures.ContainsKey(id))
-                {
+                if (!customTextures.ContainsKey(id)) {
                     byte[] layerData = File.ReadAllBytes(layers.First().Value);
                     texture.LoadImage(layerData);
                 }
-            }
-            else
+            } else
                 texture = new Texture2D(vanilla.width, vanilla.height, TextureFormat.RGBA32, true, isBump);
 
-            if (customTextures.ContainsKey(id))
-            {
-                if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}bilinear{Path.DirectorySeparatorChar}"))
-                {
+            if (customTextures.ContainsKey(id)) {
+                if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}bilinear{Path.DirectorySeparatorChar}")) {
                     texture.filterMode = FilterMode.Bilinear;
-                }
-                else if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}trilinear{Path.DirectorySeparatorChar}"))
-                {
+                } else if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}trilinear{Path.DirectorySeparatorChar}")) {
                     texture.filterMode = FilterMode.Trilinear;
-                }
-                else if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}point{Path.DirectorySeparatorChar}"))
-                {
+                } else if (customTextures[id].Contains($"{Path.DirectorySeparatorChar}point{Path.DirectorySeparatorChar}")) {
                     texture.filterMode = FilterMode.Trilinear;
-                }
-                else if (point)
+                } else if (point)
                     texture.filterMode = FilterMode.Point;
-            }
-            else if (point)
+            } else if (point)
                 texture.filterMode = FilterMode.Point;
 
-            if (customTextures.ContainsKey(id))
-            {
+            if (customTextures.ContainsKey(id)) {
+                logDump.Add($"loading custom texture file for {id}");
                 byte[] imageData = File.ReadAllBytes(customTextures[id]);
                 texture.LoadImage(imageData);
-            }
-            else if (vanilla != null)
-            {
+            } else if (vanilla != null) {
+                Dbgl($"texture {id} has no custom texture, using vanilla");
 
                 // https://support.unity.com/hc/en-us/articles/206486626-How-can-I-get-pixels-from-unreadable-textures-
 
@@ -462,10 +396,9 @@ namespace CustomTextures
                 texture.SetPixels(myTexture2D.GetPixels());
                 texture.Apply();
             }
-            if (layers.Count() > 0)
-            {
-                foreach (var layer in layers.Skip(vanilla == null && !customTextures.ContainsKey(id) ? 1 : 0))
-                {
+            if (layers.Count() > 0) {
+                Dbgl($"texture {id} has {layers.Count()} layers");
+                foreach (var layer in layers.Skip(vanilla == null && !customTextures.ContainsKey(id) ? 1 : 0)) {
 
                     Texture2D layerTex = new Texture2D(2, 2, TextureFormat.RGBA32, true, isBump);
                     layerTex.filterMode = isSprite ? FilterMode.Bilinear : FilterMode.Point;
@@ -477,16 +410,12 @@ namespace CustomTextures
                     int layerw = layerTex.width;
                     int layerh = layerTex.height;
 
-                    if (isSprite)
-                    {
-                        string[] coords = layer.Key.Substring(id.Length+1).Split('_');
-                        if (coords.Length != 4 || !int.TryParse(coords[0], out layerx) || !int.TryParse(coords[1], out layery) || !int.TryParse(coords[2], out layerw) || !int.TryParse(coords[3], out layerh))
-                        {
+                    if (isSprite) {
+                        string[] coords = layer.Key.Substring(id.Length + 1).Split('_');
+                        if (coords.Length != 4 || !int.TryParse(coords[0], out layerx) || !int.TryParse(coords[1], out layery) || !int.TryParse(coords[2], out layerw) || !int.TryParse(coords[3], out layerh)) {
                             //logDump.Add($"Improper sprite layer format {layer.Key}");
                             continue;
-                        }
-                        else
-                        {
+                        } else {
                             //logDump.Add($"sprite coords {layerx},{layery}, layer sheet size {layerw},{layerh}");
                         }
                     }
@@ -496,12 +425,13 @@ namespace CustomTextures
                     float scale = texture.width / (float)layerw; // 8 / 2 = 4 or 2 / 8 = 0.25
                     float scaleY = texture.height / (float)layerh; // 5 / 2 = 2.5 or 2 / 5 = 0.4
 
-                    if(scale != scaleY)
-                    {
+                    if (scale != scaleY) {
                         //logDump.Add($"incompatible image ratios {tex.width},{tex.height} {layerw},{layerh}");
                         continue;
                     }
 
+
+                    logDump.Add($"adding layer {layer.Key} to {id}, scale diff {scale}");
 
                     int startx = 0;
                     int starty = 0;
@@ -509,8 +439,7 @@ namespace CustomTextures
                     int endy = layerTex.height;
 
 
-                    if (isSprite)
-                    {
+                    if (isSprite) {
 
                         startx = layerx;
                         starty = layery;
@@ -525,9 +454,8 @@ namespace CustomTextures
                         //logDump.Add($"scaling texture up");
 
                         TextureScale.Bilinear(texture, (int)(texture.width / scale), (int)(texture.height / scale));
-                    }
-                    else if (scale > 1) // increase layer size
-                    {
+                    } else if (scale > 1) // increase layer size
+                      {
                         //logDump.Add($"scaling layer up");
 
                         TextureScale.Bilinear(layerTex, (int)(layerTex.width * scale), (int)(layerTex.height * scale));
@@ -542,23 +470,18 @@ namespace CustomTextures
 
                     List<string> coordsl = new List<string>();
 
-                    for(int x = startx; x < endx; x++)
-                    {
-                        for (int y = starty; y < endy; y++)
-                        {
+                    for (int x = startx; x < endx; x++) {
+                        for (int y = starty; y < endy; y++) {
                             int lx = x - startx;
                             int ly = y - starty;
 
                             Color layerColor = layerTex.GetPixel(lx, ly);
 
-                            if (isSprite)
-                            {
+                            if (isSprite) {
                                 layerColor = layerTex.GetPixel(lx, layerTex.height - ly);
                                 //coordsl.Add($"{x},{y} {lx},{ly} {layerColor}");
                                 texture.SetPixel(x, texture.height - y, layerColor);
-                            }
-                            else
-                            {
+                            } else {
                                 if (layerColor.a == 0)
                                     continue;
                                 //coordsl.Add($"{x},{y} {lx},{ly} {layerColor}");
@@ -573,8 +496,7 @@ namespace CustomTextures
                     //Dbgl(string.Join("\n", coordsl));
                     texture.Apply();
                 }
-                if (false)
-                {
+                if (false) {
                     //Dbgl($"tex {tex.width},{tex.height}");
                     //byte[] bytes = ImageConversion.EncodeToPNG(tex);
                     //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), id + "_test.png");

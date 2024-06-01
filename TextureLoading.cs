@@ -9,16 +9,13 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CustomTextures
-{
-    public partial class BepInExPlugin: BaseUnityPlugin
-    {
-        private static void LoadCustomTextures()
-        {
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),"CustomTextures");
+namespace CustomTextures {
+    public partial class BepInExPlugin : BaseUnityPlugin {
+        private static void LoadCustomTextures() {
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "CustomTextures");
 
-            if (!Directory.Exists(path))
-            {
+            if (!Directory.Exists(path)) {
+                Dbgl($"Directory {path} does not exist! Creating.");
                 Directory.CreateDirectory(path);
                 return;
             }
@@ -26,36 +23,41 @@ namespace CustomTextures
 
             texturesToLoad.Clear();
 
-            foreach (string file in Directory.GetFiles(path, "*.*", SearchOption.AllDirectories))
-            {
+            foreach (string file in Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)) {
                 string fileName = Path.GetFileName(file);
                 string id = Path.GetFileNameWithoutExtension(fileName);
 
-                
-                if (!fileWriteTimes.ContainsKey(id) || (cachedTextures.ContainsKey(id) && !DateTime.Equals(File.GetLastWriteTimeUtc(file), fileWriteTimes[id])))
-                {
+
+                if (!fileWriteTimes.ContainsKey(id) || (cachedTextures.ContainsKey(id) && !DateTime.Equals(File.GetLastWriteTimeUtc(file), fileWriteTimes[id]))) {
                     cachedTextures.Remove(id);
                     texturesToLoad.Add(id);
                     layersToLoad.Add(Regex.Replace(id, @"_[^_]+\.", "."));
                     fileWriteTimes[id] = File.GetLastWriteTimeUtc(file);
                     //Dbgl($"adding new {fileName} custom texture.");
                 }
-                
+
                 customTextures[id] = file;
             }
         }
         public static List<int> reloadedObjects = new List<int>();
-        private static void ReloadTextures(bool locations)
-        {
+        private static void ReloadTextures(bool locations) {
             reloadedObjects.Clear();
+            outputDump.Clear();
+            logDump.Clear();
+
             LoadCustomTextures();
+
+            //Dbgl($"textures to load \n\n{string.Join("\n", texturesToLoad)}");
+
             ReplaceObjectDBTextures();
             ReplaceSceneObjects();
 
+            Dbgl($"Replaced textures for {reloadedObjects.Count()} found unique objects");
+
             var zones = SceneManager.GetActiveScene().GetRootGameObjects().Where(go => go.name.StartsWith("_Zone"));
 
-            foreach (var go in zones)
-            {
+            Dbgl($"Replacing textures for {zones.Count()} zones");
+            foreach (var go in zones) {
                 ReplaceOneZoneTextures("_GameMain", go);
             }
 
@@ -67,8 +69,8 @@ namespace CustomTextures
 
             ReplaceZNetSceneTextures();
 
-            if (locations)
-            {
+            if (locations) {
+                Dbgl($"Starting ZoneSystem Location prefab replacement");
                 stopwatch.Restart();
 
                 ReplaceLocationTextures();
@@ -76,25 +78,27 @@ namespace CustomTextures
                 LogStopwatch("ZoneSystem Locations");
             }
 
-            foreach (Player player in Player.GetAllPlayers())
-            {
+            foreach (Player player in Player.GetAllPlayers()) {
                 SetupVisEquipment(player);
             }
 
+            if (logDump.Any())
+                Dbgl("\n" + string.Join("\n", logDump));
+
+            Dbgl($"Checked {reloadedObjects.Count} objects total");
+
             reloadedObjects.Clear();
-            if (dumpSceneTextures.Value)
-            {
+            if (dumpSceneTextures.Value) {
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "CustomTextures", "scene_dump.txt");
+                Dbgl($"Writing {path}");
                 File.WriteAllLines(path, outputDump);
                 dumpSceneTextures.Value = false;
             }
         }
 
-        private static void SetupVisEquipment(Humanoid humanoid)
-        {
+        private static void SetupVisEquipment(Humanoid humanoid) {
             VisEquipment ve = (VisEquipment)typeof(Humanoid).GetField("m_visEquipment", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(humanoid);
-            if (ve != null)
-            {
+            if (ve != null) {
                 SetEquipmentTexture(Traverse.Create(ve).Field("m_leftItem").GetValue<string>(), Traverse.Create(ve).Field("m_leftItemInstance").GetValue<GameObject>());
                 SetEquipmentTexture(Traverse.Create(ve).Field("m_rightItem").GetValue<string>(), Traverse.Create(ve).Field("m_rightItemInstance").GetValue<GameObject>());
                 SetEquipmentTexture(Traverse.Create(ve).Field("m_helmetItem").GetValue<string>(), Traverse.Create(ve).Field("m_helmetItemInstance").GetValue<GameObject>());

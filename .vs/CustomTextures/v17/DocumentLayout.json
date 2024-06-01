@@ -1,0 +1,138 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\doreplacement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:doreplacement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\bepinexplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:bepinexplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\texturereplacement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:texturereplacement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\customtextures.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:customtextures.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\texturescale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:texturescale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\textureloading.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:textureloading.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|c:\\users\\administrator\\documents\\valheim-modding\\customtextures_fork-main\\customtextures_fork\\patches.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4D7CE6B-2ED9-450C-A3C5-4BA61BE8F017}|CustomTextures.csproj|solutionrelative:patches.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CustomTextures",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\CustomTextures.csproj",
+              "RelativeDocumentMoniker": "CustomTextures.csproj",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\CustomTextures.csproj",
+              "RelativeToolTip": "CustomTextures.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-01T02:25:20.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TextureScale.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\TextureScale.cs",
+              "RelativeDocumentMoniker": "TextureScale.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\TextureScale.cs",
+              "RelativeToolTip": "TextureScale.cs",
+              "ViewState": "AQIAAGAAAAAAAAAAAAAAAG4AAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T02:21:12.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TextureReplacement.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\TextureReplacement.cs",
+              "RelativeDocumentMoniker": "TextureReplacement.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\TextureReplacement.cs",
+              "RelativeToolTip": "TextureReplacement.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADoAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T02:21:12.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TextureLoading.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\TextureLoading.cs",
+              "RelativeDocumentMoniker": "TextureLoading.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\TextureLoading.cs",
+              "RelativeToolTip": "TextureLoading.cs",
+              "ViewState": "AQIAAFAAAAAAAAAAAAAAAHEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T02:21:11.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Patches.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\Patches.cs",
+              "RelativeDocumentMoniker": "Patches.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\Patches.cs",
+              "RelativeToolTip": "Patches.cs",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAqwIYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T02:20:04.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DoReplacement.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\DoReplacement.cs",
+              "RelativeDocumentMoniker": "DoReplacement.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\DoReplacement.cs",
+              "RelativeToolTip": "DoReplacement.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAxwCkAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T02:19:03.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BepInExPlugin.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\BepInExPlugin.cs",
+              "RelativeDocumentMoniker": "BepInExPlugin.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\Valheim-Modding\\CustomTextures_Fork-main\\CustomTextures_Fork\\BepInExPlugin.cs",
+              "RelativeToolTip": "BepInExPlugin.cs",
+              "ViewState": "AQIAAFIAAAAAAAAAAAAcwAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T02:18:23.681Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
