@@ -1,3 +1,6 @@
+# v3.5.1
+- Thunderstore republish of the Valheim 1.0 update (3.5.0 was already reserved)
+
 # v3.5.0
 - Updated for Valheim 1.0 (Unity 6): ObjectDB.UpdateItemHashes was renamed to UpdateRegisters
 - Restored clutter texture replacement with null checks so missing prefabs no longer throw on ZNetScene.Awake
