@@ -1,6 +1,6 @@
 # CustomTextures
 
-Patched for Valheim v0.217.46+
+Updated for Valheim 1.0
 
 A fork of [aedenthorn/CustomTextures](https://github.com/aedenthorn/ValheimMods/tree/master/CustomTextures) 
 
@@ -417,17 +417,19 @@ This mod is still a work in progress.
 
 ## Known Issues
 
-Code was commented out to prevent the previous game error, unknown if this affects textures for clutter.
+Requires BepInExPack Valheim 5.4.2350+ (Unity 6). Crossplay must stay off for BepInEx to load.
 
-Line 59 of TextureReplacement.cs
-
-foreach (ClutterSystem.Clutter clutter in ClutterSystem.instance.m_clutter)
-{
-	if (!gos.Contains(clutter.m_prefab))
-		gos.Add(clutter.m_prefab);
-}
-	
-	
 ## Configuration
 
-- A config file **BepInEx/config/cjayride.CustomTextures.cfg** is created after running the game once with this mod.  
+- A config file **BepInEx/config/cjayride.CustomTextures.cfg** is created after running the game once with this mod.
+
+# Contact
+- 𝕏: x.com/cjayride
+
+- Discord: discord.gg/cjayride (find me at the top of the user list) "cjayride"
+
+- Twitch: twitch.tv/cjayride
+
+# AI Generated
+
+This code was not AI Generated, however, AI was used to verify that it works with the new version of the game.  

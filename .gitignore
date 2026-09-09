@@ -1,0 +1,12 @@
+Libraries/
+bin/
+obj/
+.vs/
+*.user
+*.suo
+dist/
+cjayride-CustomTextures-*.zip
+_dump_api.cs
+_dump_api.exe
+_api_dump.txt
+_release.ps1

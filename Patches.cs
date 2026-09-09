@@ -77,6 +77,8 @@ namespace CustomTextures {
 
                 Dbgl($"Checking {__instance.m_clutter.Count} clutters");
                 foreach (ClutterSystem.Clutter clutter in __instance.m_clutter) {
+                    if (clutter?.m_prefab == null)
+                        continue;
                     ReplaceOneGameObjectTextures(clutter.m_prefab, clutter.m_prefab.name, "object");
                 }
 
@@ -105,7 +107,11 @@ namespace CustomTextures {
         [HarmonyPatch(typeof(VisEquipment), "Awake")]
         static class VisEquipment_Awake_Patch {
             static void Postfix(VisEquipment __instance) {
+                if (__instance.m_models == null)
+                    return;
                 for (int i = 0; i < __instance.m_models.Length; i++) {
+                    if (__instance.m_models[i] == null || __instance.m_models[i].m_baseMaterial == null)
+                        continue;
                     foreach (string property in __instance.m_models[i].m_baseMaterial.GetTexturePropertyNames()) {
 
                         if (ShouldLoadCustomTexture($"player_model_{i}{property}")) {

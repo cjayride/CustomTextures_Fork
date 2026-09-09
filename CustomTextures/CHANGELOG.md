@@ -1,3 +1,12 @@
+# v3.5.0
+- Updated for Valheim 1.0 (Unity 6): ObjectDB.UpdateItemHashes was renamed to UpdateRegisters
+- Restored clutter texture replacement with null checks so missing prefabs no longer throw on ZNetScene.Awake
+- Build now references Unity assemblies from valheim_Data/Managed (unstripped_corlib / TextCoreModule are gone)
+- BepInEx dependency updated to denikson-BepInExPack_Valheim-5.4.2350
+- Debug logging is now a config option (IsDebug) instead of always-on
+- Added null checks for VisEquipment.m_models and armor materials
+- Apply custom textures to trinket equipment (new VisEquipment slot)
+
 # v3.4.1
 - Re-added debug mode, so you can troubleshoot in the console
 

@@ -8,6 +8,8 @@ using UnityEngine;
 namespace CustomTextures {
     public partial class BepInExPlugin : BaseUnityPlugin {
         private static void ReplaceOneGameObjectTextures(GameObject gameObject, string thingName, string prefix) {
+            if (gameObject == null)
+                return;
             if (reloadedObjects.Contains(gameObject.GetInstanceID()))
                 return;
 
@@ -188,7 +190,7 @@ namespace CustomTextures {
             }
             ItemDrop[] items = gameObject.GetComponentsInChildren<ItemDrop>();
             foreach (ItemDrop item in items) {
-                if (item != null && item.m_itemData.m_shared.m_armorMaterial != null) {
+                if (item?.m_itemData?.m_shared?.m_armorMaterial != null) {
                     if (dump)
                         outputDump.Add($"armor {thingName} has Material:");
                     Material m = item.m_itemData.m_shared.m_armorMaterial;

@@ -43,7 +43,7 @@ namespace CustomTextures {
                     }
                 }
             }
-            Traverse.Create(objectDB).Method("UpdateItemHashes").GetValue();
+            Traverse.Create(objectDB).Method("UpdateRegisters").GetValue();
 
             if (logDump.Any())
                 Dbgl("\n" + string.Join("\n", logDump));
@@ -54,21 +54,23 @@ namespace CustomTextures {
 
             List<GameObject> gos = new List<GameObject>();
 
-            /*foreach (ClutterSystem.Clutter clutter in ClutterSystem.instance.m_clutter) {
-                if (!gos.Contains(clutter.m_prefab))
-                    gos.Add(clutter.m_prefab);
-            }*/
+            if (ClutterSystem.instance != null) {
+                foreach (ClutterSystem.Clutter clutter in ClutterSystem.instance.m_clutter) {
+                    if (clutter?.m_prefab != null && !gos.Contains(clutter.m_prefab))
+                        gos.Add(clutter.m_prefab);
+                }
+            }
 
             var namedPrefabs = ((Dictionary<int, GameObject>)AccessTools.Field(typeof(ZNetScene), "m_namedPrefabs").GetValue(ZNetScene.instance)).Values;
             foreach (GameObject go in namedPrefabs) {
-                if (!gos.Contains(go))
+                if (go != null && !gos.Contains(go))
                     gos.Add(go);
             }
 
             Dbgl($"Checking {gos.Count} prefabs");
 
             foreach (GameObject gameObject in gos) {
-                if (gameObject.name == "_NetSceneRoot")
+                if (gameObject == null || gameObject.name == "_NetSceneRoot")
                     continue;
                 ReplaceOneGameObjectTextures(gameObject, gameObject.name, "object");
             }

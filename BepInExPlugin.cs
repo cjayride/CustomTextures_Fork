@@ -10,16 +10,15 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace CustomTextures {
-    [BepInPlugin("cjayride.CustomTextures", "Custom Textures", "3.4.1")]
+    [BepInPlugin("cjayride.CustomTextures", "Custom Textures", "3.5.0")]
     public partial class BepInExPlugin : BaseUnityPlugin {
         public static ConfigEntry<bool> modEnabled;
+        public static ConfigEntry<bool> isDebug;
         public static ConfigEntry<bool> dumpSceneTextures;
         public static ConfigEntry<bool> replaceLocationTextures;
         public static ConfigEntry<bool> reloadLocationTextures;
         public static ConfigEntry<string> hotKey;
         //public static ConfigEntry<int> nexusID;
-
-        private static readonly bool isDebug = true;
         private static BepInExPlugin context;
         private static Stopwatch stopwatch = new Stopwatch();
 
@@ -33,12 +32,13 @@ namespace CustomTextures {
         public static List<string> logDump = new List<string>();
 
         public static void Dbgl(string str = "", bool pref = true) {
-            if (isDebug)
+            if (isDebug.Value)
                 Debug.Log((pref ? typeof(BepInExPlugin).Namespace + " " : "") + str);
         }
         private void Awake() {
             context = this;
             modEnabled = Config.Bind<bool>("General", "Enabled", true, "Enable this mod");
+            isDebug = Config.Bind<bool>("General", "IsDebug", false, "Enable debug");
             hotKey = Config.Bind<string>("General", "HotKey", "page down", "Key to reload textures");
             replaceLocationTextures = Config.Bind<bool>("General", "ReplaceLocationTextures", true, "Replace textures for special locations (can take a long time)");
             reloadLocationTextures = Config.Bind<bool>("General", "ReloadLocationTextures", false, "Reload textures for special locations on manual reload (can take a long time)");

@@ -1,9 +1,9 @@
 {
     "name": "CustomTextures",
-    "version_number": "3.4.0",
-    "website_url": "https://github.com/aedenthorn/ValheimMods/tree/master/CustomTextures",
-    "description": "Allows you to replace instances of game textures with custom png files.",
+    "version_number": "3.5.0",
+    "website_url": "https://github.com/cjayride/CustomTextures_Fork",
+    "description": "Fork of aedenthorn's CustomTextures for Valheim 1.0. Allows you to replace instances of game textures with custom png files.",
     "dependencies": [
-		"denikson-BepInExPack_Valheim-5.4.2202"
+		"denikson-BepInExPack_Valheim-5.4.2350"
     ]
 }
