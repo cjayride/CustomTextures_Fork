@@ -1,6 +1,6 @@
 {
     "name": "CustomTextures",
-    "version_number": "3.5.1",
+    "version_number": "3.5.2",
     "website_url": "https://github.com/cjayride/CustomTextures_Fork",
     "description": "Fork of aedenthorn's CustomTextures for Valheim 1.0. Allows you to replace instances of game textures with custom png files.",
     "dependencies": [

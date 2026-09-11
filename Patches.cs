@@ -134,7 +134,11 @@ namespace CustomTextures {
             static void Postfix(Humanoid __instance) {
                 if (!modEnabled.Value)
                     return;
-                SetupVisEquipment(__instance);
+                try {
+                    SetupVisEquipment(__instance);
+                } catch (Exception ex) {
+                    Dbgl($"SetupVisEquipment patch error: {ex}");
+                }
             }
         }
     }

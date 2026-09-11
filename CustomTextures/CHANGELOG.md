@@ -1,3 +1,6 @@
+# v3.5.2
+- Fix InvalidCastException on login: VisEquipment item slots are prefab hashes in Valheim 1.0, not strings. This was aborting player load and spinning the camera.
+
 # v3.5.1
 - Thunderstore republish of the Valheim 1.0 update (3.5.0 was already reserved)
 

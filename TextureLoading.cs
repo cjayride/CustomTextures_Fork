@@ -97,19 +97,52 @@ namespace CustomTextures {
         }
 
         private static void SetupVisEquipment(Humanoid humanoid) {
-            VisEquipment ve = (VisEquipment)typeof(Humanoid).GetField("m_visEquipment", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(humanoid);
-            if (ve != null) {
-                SetEquipmentTexture(Traverse.Create(ve).Field("m_leftItem").GetValue<string>(), Traverse.Create(ve).Field("m_leftItemInstance").GetValue<GameObject>());
-                SetEquipmentTexture(Traverse.Create(ve).Field("m_rightItem").GetValue<string>(), Traverse.Create(ve).Field("m_rightItemInstance").GetValue<GameObject>());
-                SetEquipmentTexture(Traverse.Create(ve).Field("m_helmetItem").GetValue<string>(), Traverse.Create(ve).Field("m_helmetItemInstance").GetValue<GameObject>());
-                SetEquipmentTexture(Traverse.Create(ve).Field("m_leftBackItem").GetValue<string>(), Traverse.Create(ve).Field("m_leftBackItemInstance").GetValue<GameObject>());
-                SetEquipmentTexture(Traverse.Create(ve).Field("m_rightBackItem").GetValue<string>(), Traverse.Create(ve).Field("m_rightBackItemInstance").GetValue<GameObject>());
-                SetEquipmentListTexture(Traverse.Create(ve).Field("m_shoulderItem").GetValue<string>(), Traverse.Create(ve).Field("m_shoulderItemInstances").GetValue<List<GameObject>>());
-                SetEquipmentListTexture(Traverse.Create(ve).Field("m_utilityItem").GetValue<string>(), Traverse.Create(ve).Field("m_utilityItemInstances").GetValue<List<GameObject>>());
-                SetEquipmentListTexture(Traverse.Create(ve).Field("m_trinketItem").GetValue<string>(), Traverse.Create(ve).Field("m_trinketItemInstances").GetValue<List<GameObject>>());
-                SetBodyEquipmentTexture(ve, Traverse.Create(ve).Field("m_legItem").GetValue<string>(), ve.m_bodyModel, Traverse.Create(ve).Field("m_legItemInstances").GetValue<List<GameObject>>());
-                SetBodyEquipmentTexture(ve, Traverse.Create(ve).Field("m_chestItem").GetValue<string>(), ve.m_bodyModel, Traverse.Create(ve).Field("m_chestItemInstances").GetValue<List<GameObject>>());
+            try {
+                VisEquipment ve = AccessTools.Field(typeof(Humanoid), "m_visEquipment")?.GetValue(humanoid) as VisEquipment;
+                if (ve == null)
+                    return;
+
+                SetEquipmentTexture(GetVisItemName(ve, "m_leftItem"), GetVisGameObject(ve, "m_leftItemInstance"));
+                SetEquipmentTexture(GetVisItemName(ve, "m_rightItem"), GetVisGameObject(ve, "m_rightItemInstance"));
+                SetEquipmentTexture(GetVisItemName(ve, "m_helmetItem"), GetVisGameObject(ve, "m_helmetItemInstance"));
+                SetEquipmentTexture(GetVisItemName(ve, "m_leftBackItem"), GetVisGameObject(ve, "m_leftBackItemInstance"));
+                SetEquipmentTexture(GetVisItemName(ve, "m_rightBackItem"), GetVisGameObject(ve, "m_rightBackItemInstance"));
+                SetEquipmentListTexture(GetVisItemName(ve, "m_shoulderItem"), GetVisGameObjectList(ve, "m_shoulderItemInstances"));
+                SetEquipmentListTexture(GetVisItemName(ve, "m_utilityItem"), GetVisGameObjectList(ve, "m_utilityItemInstances"));
+                SetEquipmentListTexture(GetVisItemName(ve, "m_trinketItem"), GetVisGameObjectList(ve, "m_trinketItemInstances"));
+                SetBodyEquipmentTexture(ve, GetVisItemName(ve, "m_legItem"), ve.m_bodyModel, GetVisGameObjectList(ve, "m_legItemInstances"));
+                SetBodyEquipmentTexture(ve, GetVisItemName(ve, "m_chestItem"), ve.m_bodyModel, GetVisGameObjectList(ve, "m_chestItemInstances"));
+            } catch (Exception ex) {
+                Dbgl($"SetupVisEquipment error: {ex}");
             }
+        }
+
+        private static object GetVisField(VisEquipment ve, string fieldName) {
+            return AccessTools.Field(typeof(VisEquipment), fieldName)?.GetValue(ve);
+        }
+
+        private static string GetVisItemName(VisEquipment ve, string fieldName) {
+            object stored = GetVisField(ve, fieldName);
+            if (stored is string name)
+                return string.IsNullOrEmpty(name) ? null : name;
+            if (stored is int hash && hash != 0 && ZNetScene.instance != null) {
+                GameObject prefab = ZNetScene.instance.GetPrefab(hash);
+                return prefab != null ? prefab.name : null;
+            }
+            return null;
+        }
+
+        private static GameObject GetVisGameObject(VisEquipment ve, string fieldName) {
+            return GetVisField(ve, fieldName) as GameObject;
+        }
+
+        private static List<GameObject> GetVisGameObjectList(VisEquipment ve, string fieldName) {
+            object stored = GetVisField(ve, fieldName);
+            if (stored is List<GameObject> list)
+                return list;
+            if (stored is GameObject[] array)
+                return array.ToList();
+            return null;
         }
     }
 }
