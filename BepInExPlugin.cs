@@ -10,7 +10,7 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace CustomTextures {
-    [BepInPlugin("cjayride.CustomTextures", "Custom Textures", "3.5.2")]
+    [BepInPlugin("cjayride.CustomTextures", "Custom Textures", "3.5.3")]
     public partial class BepInExPlugin : BaseUnityPlugin {
         public static ConfigEntry<bool> modEnabled;
         public static ConfigEntry<bool> isDebug;
